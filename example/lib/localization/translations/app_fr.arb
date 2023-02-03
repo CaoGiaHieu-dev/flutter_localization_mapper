@@ -1,0 +1,30 @@
+{
+	"@@locale": "fr",
+	"cashier_fiat_deposit_timeframe_bank_brite": "Immédiat",
+	"@cashier_fiat_deposit_timeframe_bank_brite": {
+		"type": "text"
+	},
+	"cashier_activate_tronlink": "Pour utiliser TronLink, cliquez d'abord sur votre extension TronLink et connectez-vous. ",
+	"@cashier_activate_tronlink": {
+		"type": "text"
+	},
+	"cashier_active_balance": "Solde actif",
+	"@cashier_active_balance": {
+		"type": "text"
+	},
+	"cashier_balance_reverted": "Solde en {currency}",
+	"@cashier_balance_reverted": {
+		"type": "text",
+		"placeholders": {
+			"currency": {}
+		}
+	},
+	"cashier_convert_before_withdraw": "* Pour pouvoir retirer {convertFrom}, vous devez d'abord le reconvertir en {convertTo}.\n",
+	"@cashier_convert_before_withdraw": {
+		"type": "text",
+		"placeholders": {
+			"convertfrom": {},
+			"convertto": {}
+		}
+	}
+}
