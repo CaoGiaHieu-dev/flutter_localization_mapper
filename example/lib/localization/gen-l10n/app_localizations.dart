@@ -14,9 +14,9 @@ import 'app_localizations_fr.dart';
 /// Applications need to include `AppLocalizations.delegate()` in their app's
 /// `localizationDelegates` list, and the locales they support in the app's
 /// `supportedLocales` list. For example:
-import 'package:localization_mapper_annotation/localization_mapper_annotation.dart';///
-part 'app_localizations.g.dart';/// ```dart
-@LocalizationMapperAnnotation()/// import 'gen-l10n/app_localizations.dart';
+///
+/// ```dart
+/// import 'gen-l10n/app_localizations.dart';
 ///
 /// return MaterialApp(
 ///   localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -59,99 +59,103 @@ part 'app_localizations.g.dart';/// ```dart
 /// you wish to add from the pop-up menu in the Value field. This list should
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
+import 'package:localization_mapper_annotation/localization_mapper_annotation.dart';
+part 'app_localizations.g.dart';
+
+@LocalizationMapperAnnotation()
 abstract class AppLocalizations {
-AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
-final String localeName;
+  final String localeName;
 
-static AppLocalizations? of(BuildContext context) {
-return Localizations.of<AppLocalizations>(context, AppLocalizations);
-}
+  static AppLocalizations? of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations);
+  }
 
-static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
-/// A list of this localizations delegate along with the default localizations
-/// delegates.
-///
-/// Returns a list of localizations delegates containing this delegate along with
-/// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
-/// and GlobalWidgetsLocalizations.delegate.
-///
-/// Additional delegates can be added by appending to this list in
-/// MaterialApp. This list does not have to be used at all if a custom list
-/// of delegates is preferred or required.
-static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-delegate,
-GlobalMaterialLocalizations.delegate,
-GlobalCupertinoLocalizations.delegate,
-GlobalWidgetsLocalizations.delegate,
-];
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
-/// A list of this localizations delegate's supported locales.
-static const List<Locale> supportedLocales = <Locale>[
-Locale('en'),
-Locale('fr')
-];
+  /// A list of this localizations delegate's supported locales.
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('fr')
+  ];
 
-/// No description provided for @cashier_fiat_deposit_timeframe_bank_brite.
-///
-/// In en, this message translates to:
-/// **'Instant'**
-String get cashier_fiat_deposit_timeframe_bank_brite;
+  /// No description provided for @cashier_fiat_deposit_timeframe_bank_brite.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant'**
+  String get cashier_fiat_deposit_timeframe_bank_brite;
 
-/// No description provided for @cashier_activate_tronlink.
-///
-/// In en, this message translates to:
-/// **'To use TronLink, first click on your TronLink extension and log in.'**
-String get cashier_activate_tronlink;
+  /// No description provided for @cashier_activate_tronlink.
+  ///
+  /// In en, this message translates to:
+  /// **'To use TronLink, first click on your TronLink extension and log in.'**
+  String get cashier_activate_tronlink;
 
-/// No description provided for @cashier_active_balance.
-///
-/// In en, this message translates to:
-/// **'Active balance'**
-String get cashier_active_balance;
+  /// No description provided for @cashier_active_balance.
+  ///
+  /// In en, this message translates to:
+  /// **'Active balance'**
+  String get cashier_active_balance;
 
-/// No description provided for @cashier_balance_reverted.
-///
-/// In en, this message translates to:
-/// **'{currency} balance'**
-String cashier_balance_reverted(Object currency);
+  /// No description provided for @cashier_balance_reverted.
+  ///
+  /// In en, this message translates to:
+  /// **'{currency} balance'**
+  String cashier_balance_reverted(Object currency);
 
-/// No description provided for @cashier_convert_before_withdraw.
-///
-/// In en, this message translates to:
-/// **'* For withdrawing your {convertFrom} you first need to convert it back to {convertTo}'**
-String cashier_convert_before_withdraw(Object convertfrom, Object convertto, Object convertFrom, Object convertTo);
+  /// No description provided for @cashier_convert_before_withdraw.
+  ///
+  /// In en, this message translates to:
+  /// **'* For withdrawing your {convertFrom} you first need to convert it back to {convertTo}'**
+  String cashier_convert_before_withdraw(Object convertfrom, Object convertto, Object convertFrom, Object convertTo);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
-const _AppLocalizationsDelegate();
+  const _AppLocalizationsDelegate();
 
-@override
-Future<AppLocalizations> load(Locale locale) {
-return SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
-}
+  @override
+  Future<AppLocalizations> load(Locale locale) {
+    return SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
+  }
 
-@override
-bool isSupported(Locale locale) => <String>['en', 'fr'].contains(locale.languageCode);
+  @override
+  bool isSupported(Locale locale) => <String>['en', 'fr'].contains(locale.languageCode);
 
-@override
-bool shouldReload(_AppLocalizationsDelegate old) => false;
+  @override
+  bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
 
 
-// Lookup logic when only language code is specified.
-switch (locale.languageCode) {
-case 'en': return AppLocalizationsEn();
-case 'fr': return AppLocalizationsFr();
-}
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'en': return AppLocalizationsEn();
+    case 'fr': return AppLocalizationsFr();
+  }
 
-throw FlutterError(
-'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-'an issue with the localizations generation tool. Please file an issue '
-'on GitHub with a reproducible sample app and the gen-l10n configuration '
-'that was used.'
-);
+  throw FlutterError(
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }
