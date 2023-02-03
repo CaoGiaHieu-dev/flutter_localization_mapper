@@ -16,7 +16,7 @@ import 'app_localizations_fr.dart';
 /// `supportedLocales` list. For example:
 import 'package:localization_mapper_annotation/localization_mapper_annotation.dart';///
 part 'app_localizations.g.dart';/// ```dart
-@LocalizationMapperAnnotation()/// import 'gen-l10n/app_localizations.dart';
+/// import 'gen-l10n/app_localizations.dart';
 ///
 /// return MaterialApp(
 ///   localizationsDelegates: AppLocalizations.localizationsDelegates,
