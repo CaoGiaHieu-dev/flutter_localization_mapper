@@ -1,5 +1,5 @@
-class LocalizationMapper {
-  const LocalizationMapper();
+class LocalizationMapperAnnotation {
+  const LocalizationMapperAnnotation();
 }
 
-const localizationMapper = LocalizationMapper();
+const localizationMapper = LocalizationMapperAnnotation();
