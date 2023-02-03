@@ -36,36 +36,39 @@ Note: `write_to_file.sh` script is currently limited to writing imports and anno
 #!/bin/bash
 
 # check if enough arguments were provided
-if [ $# -lt 2 ]; then
+if [ $# -lt 3 ]; then
     echo "Error: Not enough arguments provided."
-    echo "Usage: $0 <file> <line_number> <string_to_add>"
+    echo "Usage: $0 <input_file> <search_pattern> <replacement_string>"
     exit 1
 fi
 
 # assign input arguments to variables
-file=$1
-line_number=$2
-string_to_add=$3
+input_file=$1
+search_pattern=$2
+replacement_string=$3
+
+# check if the input file exists
+if [ ! -f $input_file ]; then
+    echo "Error: Input file does not exist."
+    exit 1
+fi
 
 # backup the original file
-cp $file "$file.bak"
+cp $input_file "$input_file.bak"
 
-# add the string to the desired line and write the result to a new file
-counter=0
-while read line; do
-    ((counter++))
-    if [ $counter -eq $line_number ]; then
-        echo "$string_to_add$line" >> "$file.tmp"
-    else
-        echo "$line" >> "$file.tmp"
-    fi
-done < "$file"
+# perform the search and replace and write the result to a new file
+sed "s/$search_pattern/$replacement_string/i" $input_file > "$input_file.tmp"
+
+# check if the replacement was successful
+if [ $? -ne 0 ]; then
+    echo "Error: Replacement failed."
+    exit 1
+fi
 
 # overwrite the original file with the new file
-mv "$file.tmp" "$file"
+mv "$input_file.tmp" "$input_file"
 
-echo "String addition completed successfully."
-
+echo "Replacement completed successfully."
 ```
 
 The below `generate_localization.sh` script 
@@ -84,11 +87,19 @@ chmod +x ./write_to_file.sh
 # generate localization
 (cd ../ && flutter gen-l10n)
 
+requiredImports=$(cat << EOM
+import 'package:localization_mapper_annotation\/localization_mapper_annotation.dart';\n\
+part 'app_localizations.g.dart';\n\n\
+@LocalizationMapperAnnotation()\n\
+abstract class AppLocalizations {
+EOM
+)
+
+# requiredImports="import \'package:localization_mapper_annotation\/localization_mapper_annotation.dart'\;\npart \'app_localizations.g.dart'\;\n\n@LocalizationMapperAnnotation()\nabstract class AppLocalizations {"
+
 # write imports and annotations to app_localization.dart file
 echo "\nAdding required imports to generated app_localizations"
-./write_to_file.sh "../lib/localization/gen-l10n/app_localizations.dart"  17 "import 'package:localization_mapper_annotation/localization_mapper_annotation.dart';"
-./write_to_file.sh "../lib/localization/gen-l10n/app_localizations.dart"  18 "part 'app_localizations.g.dart';"
-./write_to_file.sh "../lib/localization/gen-l10n/app_localizations.dart"  19 "@LocalizationMapperAnnotation()"
+bash ./replace_string.sh "../lib/localization/gen-l10n/app_localizations.dart" "abstract class AppLocalizations {" "$requiredImports"
 
 echo "\nGenerating app_localizations mapper files"
 (cd ../ && flutter pub run build_runner build --delete-conflicting-outputs)
