@@ -1,8 +1,6 @@
 # localization_mapper
 A dart package to generate app-localization mapper that can be parsed dynamic translation keys (as flutter-localizations package does not yet support this).
 
-**All contributions to the package are welcome**
-
 Note: Setup localization using `flutter_localizations` package before proceeding with this.
 
 ## Getting started
@@ -29,9 +27,9 @@ Define shell-scripts
 This will write the required imports to the app-localization generated file given the relative file path, annotate with `LocalizationMapperAnnotation` and finally generate a part-file (mapper) for app-localization translation keys.
 
 
-Note: `write_to_file.sh` script is currently limited to writing imports and annotations to a specific line number (which should be accounted for when supplying parameters in the `generate_localization.sh` script) but a better approach would be a script to search for the beginning of the generated `app-localization` class and add imports and annotation above the class. 
+Note: `replace_string.sh` script is currently limited to writing imports and annotations to a specific line number (which should be accounted for when supplying parameters in the `generate_localization.sh` script) but a better approach would be a script to search for the beginning of the generated `app-localization` class and add imports and annotation above the class. 
 ```sh
-../scripts/write_to_file.sh
+../scripts/replace_string.sh
 
 #!/bin/bash
 
@@ -72,21 +70,23 @@ echo "Replacement completed successfully."
 ```
 
 The below `generate_localization.sh` script 
-- grants `write_to_file.sh` executable permission
+- grants `replace_string.sh` executable permission
 - generates translations
 - write required imports and annotations to generated `app-localization` file
 - generates other part files with `app-localization` mapper inclusive
 
-Note: ensure to change all paths to your proper `../lib/localization/gen-l10n/app_localizations.dart` file part and add your contributions for a better script.
+Note: ensure to change `filePath` to your `/app_localizations.dart` file location.
 ```sh
 ../scripts/generate_localization.sh
 
 # grant executable permissions
-chmod +x ./write_to_file.sh
+chmod +x ./replace_string.sh
 
 # generate localization
 (cd ../ && flutter gen-l10n)
 
+filePath="../lib/localization/gen-l10n/app_localizations.dart"
+searchParameter="abstract class AppLocalizations {"
 requiredImports=$(cat << EOM
 import 'package:localization_mapper_annotation\/localization_mapper_annotation.dart';\n\
 part 'app_localizations.g.dart';\n\n\
@@ -95,11 +95,9 @@ abstract class AppLocalizations {
 EOM
 )
 
-# requiredImports="import \'package:localization_mapper_annotation\/localization_mapper_annotation.dart'\;\npart \'app_localizations.g.dart'\;\n\n@LocalizationMapperAnnotation()\nabstract class AppLocalizations {"
-
 # write imports and annotations to app_localization.dart file
 echo "\nAdding required imports to generated app_localizations"
-bash ./replace_string.sh "../lib/localization/gen-l10n/app_localizations.dart" "abstract class AppLocalizations {" "$requiredImports"
+bash ./replace_string.sh "$filePath" "$searchParameter" "$requiredImports"
 
 echo "\nGenerating app_localizations mapper files"
 (cd ../ && flutter pub run build_runner build --delete-conflicting-outputs)
@@ -144,8 +142,14 @@ Note: parameters, are parsed as a list of positional arguments which should be p
   final greeting = context.cashierL10nParse('app_greeting', arguments: ['😀']); // Hello 😀
 ```
 
-Observed Limitaions
-Flutter application regenerates `app-localization` file which results to cleared annotations and imports and will require running the `generate_localization.sh` script to write all required imports and annotations in the `app-localization` file. 
+## Observed Limitaions
+Flutter application regenerates localization files on `application-run` (including `app-localization` file) which results to cleared annotations and imports and will require running the `generate_localization.sh` script to write all required imports and annotations in the `app-localization` file. 
+
+With this in mind, the regenerated files results to errors that might prevent the execution of running the application since the generated part file `AppLocalizationsMapper` of `AppLocalizations` does not exist yet and is referenced in `LocalizationExtension`.
+
+An approach around this would be to create a post script run workflow to run the `generate_localization.sh` script when `flutter run` command is completed when using a terminal or code editor to run the flutter application
+
+**Note: Your PRs regarding this limitation is welcome**
 
 For more information, checkout the example project.
 
