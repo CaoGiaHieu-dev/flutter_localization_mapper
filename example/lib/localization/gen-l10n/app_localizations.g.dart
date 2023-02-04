@@ -11,18 +11,16 @@ class AppLocalizationsMapper {
   Map<String, dynamic> toLocalizationMap(BuildContext context) {
     return {
       'localeName': AppLocalizations.of(context)!.localeName,
-      'cashier_fiat_deposit_timeframe_bank_brite': AppLocalizations.of(context)!
-          .cashier_fiat_deposit_timeframe_bank_brite,
-      'cashier_activate_tronlink':
-          AppLocalizations.of(context)!.cashier_activate_tronlink,
-      'cashier_active_balance':
-          AppLocalizations.of(context)!.cashier_active_balance,
-      'cashier_balance_reverted': (currency) =>
-          AppLocalizations.of(context)!.cashier_balance_reverted(currency),
-      'cashier_convert_before_withdraw':
-          (convertfrom, convertto, convertFrom, convertTo) =>
-              AppLocalizations.of(context)!.cashier_convert_before_withdraw(
-                  convertfrom, convertto, convertFrom, convertTo),
+      'application_name': AppLocalizations.of(context)!.application_name,
+      'deposit_timeframe': AppLocalizations.of(context)!.deposit_timeframe,
+      'balance_reverted': (currency) =>
+          AppLocalizations.of(context)!.balance_reverted(currency),
+      'convert_before_withdraw': (convertFrom, convertTo) =>
+          AppLocalizations.of(context)!
+              .convert_before_withdraw(convertFrom, convertTo),
+      'convert_before_withdraw_again': (convertFrom, convertTo) =>
+          AppLocalizations.of(context)!
+              .convert_before_withdraw_again(convertFrom, convertTo),
     };
   }
 }

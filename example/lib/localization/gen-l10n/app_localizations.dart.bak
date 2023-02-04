@@ -93,35 +93,35 @@ abstract class AppLocalizations {
     Locale('fr')
   ];
 
-  /// No description provided for @cashier_fiat_deposit_timeframe_bank_brite.
+  /// No description provided for @application_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Localization mapper'**
+  String get application_name;
+
+  /// No description provided for @deposit_timeframe.
   ///
   /// In en, this message translates to:
   /// **'Instant'**
-  String get cashier_fiat_deposit_timeframe_bank_brite;
+  String get deposit_timeframe;
 
-  /// No description provided for @cashier_activate_tronlink.
-  ///
-  /// In en, this message translates to:
-  /// **'To use TronLink, first click on your TronLink extension and log in.'**
-  String get cashier_activate_tronlink;
-
-  /// No description provided for @cashier_active_balance.
-  ///
-  /// In en, this message translates to:
-  /// **'Active balance'**
-  String get cashier_active_balance;
-
-  /// No description provided for @cashier_balance_reverted.
+  /// No description provided for @balance_reverted.
   ///
   /// In en, this message translates to:
   /// **'{currency} balance'**
-  String cashier_balance_reverted(Object currency);
+  String balance_reverted(Object currency);
 
-  /// No description provided for @cashier_convert_before_withdraw.
+  /// No description provided for @convert_before_withdraw.
   ///
   /// In en, this message translates to:
   /// **'* For withdrawing your {convertFrom} you first need to convert it back to {convertTo}'**
-  String cashier_convert_before_withdraw(Object convertfrom, Object convertto, Object convertFrom, Object convertTo);
+  String convert_before_withdraw(Object convertFrom, Object convertTo);
+
+  /// No description provided for @convert_before_withdraw_again.
+  ///
+  /// In en, this message translates to:
+  /// **'* For withdrawing your {convertFrom} you first need to convert it back to {convertTo}'**
+  String convert_before_withdraw_again(Object convertFrom, Object convertTo);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

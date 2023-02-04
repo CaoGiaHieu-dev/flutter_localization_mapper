@@ -1,30 +1,34 @@
 {
 	"@@locale": "en",
-	"cashier_fiat_deposit_timeframe_bank_brite": "Instant",
-	"@cashier_fiat_deposit_timeframe_bank_brite": {
+	"application_name": "Localization mapper",
+	"@application_name": {
 		"type": "text"
 	},
-	"cashier_activate_tronlink": "To use TronLink, first click on your TronLink extension and log in.",
-	"@cashier_activate_tronlink": {
+	"deposit_timeframe": "Instant",
+	"@deposit_timeframe": {
 		"type": "text"
 	},
-	"cashier_active_balance": "Active balance",
-	"@cashier_active_balance": {
-		"type": "text"
-	},
-	"cashier_balance_reverted": "{currency} balance",
-	"@cashier_balance_reverted": {
+	"balance_reverted": "{currency} balance",
+	"@balance_reverted": {
 		"type": "text",
 		"placeholders": {
 			"currency": {}
 		}
 	},
-	"cashier_convert_before_withdraw": "* For withdrawing your {convertFrom} you first need to convert it back to {convertTo}",
-	"@cashier_convert_before_withdraw": {
+	"convert_before_withdraw": "* For withdrawing your {convertFrom} you first need to convert it back to {convertTo}",
+	"@convert_before_withdraw": {
 		"type": "text",
 		"placeholders": {
-			"convertfrom": {},
-			"convertto": {}
+			"convertFrom": {},
+			"convertTo": {}
+		}
+	},
+	"convert_before_withdraw_again": "* For withdrawing your {convertFrom} you first need to convert it back to {convertTo}",
+	"@convert_before_withdraw_again": {
+		"type": "text",
+		"placeholders": {
+			"convertFrom": {},
+			"convertTo": {}
 		}
 	}
 }
