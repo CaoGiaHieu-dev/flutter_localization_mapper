@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../gen-l10n/app_localizations.dart';
 
 extension LocalizationExtension on BuildContext {
-  AppLocalizations get cashierL10n => AppLocalizations.of(this)!;
-  Locale get cashierActiveLocale => Localizations.localeOf(this);
+  AppLocalizations get l10n => AppLocalizations.of(this)!;
+  Locale get locale => Localizations.localeOf(this);
 
   String l10nParser(String translationKey, {List<Object>? arguments}) {
     const mapper = AppLocalizationsMapper();
