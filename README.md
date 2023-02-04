@@ -113,8 +113,8 @@ import 'package:flutter/material.dart';
 import '../gen-l10n/app_localizations.dart';
 
 extension LocalizationExtension on BuildContext {
-  AppLocalizations get cashierL10n => AppLocalizations.of(this)!;
-  Locale get cashierActiveLocale => Localizations.localeOf(this);
+  AppLocalizations get l10n => AppLocalizations.of(this)!;
+  Locale get locale => Localizations.localeOf(this);
 
   String l10nParser(String translationKey, {List<Object>? arguments}) {
     const mapper = AppLocalizationsMapper(); // generated app-localizations.g.dart file
@@ -135,11 +135,11 @@ Example usage
 Note: parameters, are parsed as a list of positional arguments which should be parsed as specified in the translation-file.
 
 ```dart
-  final status = context.cashierL10nParse('transaction_status');
-  final title = context.cashierL10nParse('application_title');
+  final status = context.l10nParser('transaction_status');
+  final title = context.l10nParser('application_title');
   
   // parsing placeholder parameters
-  final greeting = context.cashierL10nParse('app_greeting', arguments: ['😀']); // Hello 😀
+  final greeting = context.l10nParser('app_greeting', arguments: ['😀']); // Hello 😀
 ```
 
 ## Observed Limitaions
