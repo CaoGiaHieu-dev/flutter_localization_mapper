@@ -79,7 +79,7 @@ Note: ensure to change `filePath` to your `/app_localizations.dart` file locatio
 ```sh
 ../scripts/generate_localization.sh
 
-# grant executable permissions
+# grant executable permissions (you should grant executable permissions at your will and not via scripts)
 chmod +x ./replace_string.sh
 
 # generate localization
