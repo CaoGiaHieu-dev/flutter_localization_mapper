@@ -149,7 +149,7 @@ With this in mind, the regenerated files results to errors that might prevent th
 
 An approach around this would be to create a post script run workflow to run the `generate_localization.sh` script when `flutter run` command is completed when using a terminal or code editor to run the flutter application
 
-**Note: Your PRs regarding this limitation is welcome**
+**Note: Your PRs regarding this is highly encouraged and welcome**
 
 For more information, checkout the example project.
 
