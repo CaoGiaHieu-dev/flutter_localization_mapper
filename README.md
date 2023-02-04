@@ -143,7 +143,7 @@ Note: parameters, are parsed as a list of positional arguments which should be p
 ```
 
 ## Observed Limitaions
-Flutter application regenerates localization files on `application-run` (including `app-localization` file) which results to cleared annotations and imports and will require running the `generate_localization.sh` script to write all required imports and annotations in the `app-localization` file. 
+Flutter application regenerates localization files on `application run` (including `app-localization` file even with `generate: false`) which results to cleared annotations and imports and will require running the `generate_localization.sh` script to write all required imports and annotations in the `app-localization` file. 
 
 With this in mind, the regenerated files results to errors that might prevent the execution of running the application since the generated part file `AppLocalizationsMapper` of `AppLocalizations` does not exist yet and is referenced in `LocalizationExtension`.
 
