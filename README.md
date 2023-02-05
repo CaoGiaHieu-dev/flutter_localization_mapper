@@ -170,7 +170,7 @@ With this in mind, the regenerated files results to errors that might prevent th
 
 An approach around this would be to create a post script run workflow to run the `generate_localization.sh` script when `flutter run` command is completed when using a terminal or code editor to run the flutter application
 
-Opened an issues pertaining this and another pertaining some bugs introduced by `flutter 3.7`
+Opened an issue pertaining this and another pertaining some bugs introduced by `flutter 3.7`
 - [[BUG]Unable to disable auto-generation](https://github.com/flutter/flutter/issues/120023)
 - [[BUG]Unnecessary additional parameters generated for mismatched placeholders](https://github.com/flutter/flutter/issues/120025)
 
