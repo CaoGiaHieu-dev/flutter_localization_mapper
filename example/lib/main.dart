@@ -1,4 +1,3 @@
-import 'package:example/localization/core/localization_extension.dart';
 import 'package:example/localization/gen-l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 

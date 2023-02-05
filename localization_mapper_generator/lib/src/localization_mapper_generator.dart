@@ -27,14 +27,37 @@ class LocalizationMapperGenerator
     element.visitChildren(visitor);
 
     final buffer = StringBuffer();
-    final className = '${visitor.className}Mapper';
+    final className = visitor.className;
+    final mapperName = '${visitor.className}Mapper';
+    final extensionName = '${visitor.className}Extension';
 
-    buffer.writeln('class $className {');
+    // generate extension
+    buffer.writeln('extension $extensionName on BuildContext {');
+    buffer.writeln('$className get l10n => $className.of(this)!;');
+    buffer.writeln('Locale get locale => Localizations.localeOf(this);');
+
+    buffer.writeln('String l10nParser(String translationKey, {List<Object>? arguments}) {');
+    buffer.writeln('const mapper = $mapperName();');
+    buffer.writeln('final object = mapper.toLocalizationMap(this)[translationKey];');
+    
+    buffer.writeln('if (object is String) return object;');
+
+    buffer.writeln("assert(arguments != null, 'Arguments should not be null!');");
+    buffer.writeln("assert(arguments!.isNotEmpty, 'Arguments should not be empty!');");
+
+    buffer.writeln('return Function.apply(object, arguments);');
+    buffer.writeln('}');
+    buffer.writeln('}');
+    // end of extension
+
+
+    // generate class
+    buffer.writeln('class $mapperName {');
 
     // constructor
-    buffer.writeln('const $className();');
+    buffer.writeln('const $mapperName();');
 
-    // toMap
+    // toLocalizationMap
     buffer.writeln(
         'Map<String, dynamic> toLocalizationMap(BuildContext context) {');
     buffer.writeln('return {');
