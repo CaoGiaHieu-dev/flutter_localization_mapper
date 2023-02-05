@@ -24,10 +24,8 @@ dev_dependencies:
 
 Define shell-scripts
 
-This will write the required imports to the app-localization generated file given the relative file path, annotate with `LocalizationMapperAnnotation` and finally generate a part-file (mapper) for app-localization translation keys.
+This will write the required imports to the app-localization generated file given the relative file path, annotate with `LocalizationMapperAnnotation` and finally generate a part-file (mapper and extension) for app-localization translation keys.
 
-
-Note: `replace_string.sh` script is currently limited to writing imports and annotations to a specific line number (which should be accounted for when supplying parameters in the `generate_localization.sh` script) but a better approach would be a script to search for the beginning of the generated `app-localization` class and add imports and annotation above the class. 
 ```sh
 ../scripts/replace_string.sh
 
@@ -73,7 +71,7 @@ The below `generate_localization.sh` script
 - grants `replace_string.sh` executable permission
 - generates translations
 - write required imports and annotations to generated `app-localization` file
-- generates other part files with `app-localization` mapper inclusive
+- generates a part file with `app-localization` mapper and extension.
 
 Note: ensure to change `filePath` to your `/app_localizations.dart` file location.
 ```sh
@@ -164,17 +162,17 @@ Note: parameters, are parsed as a list of positional arguments which should be i
 ```
 
 ## Observed Limitations
-Flutter application regenerates localization files on `application run` (including `app-localization` file even with `generate: false`) which results to cleared annotations and imports and will require running the `generate_localization.sh` script to write all required imports and annotations in the `app-localization` file. 
+Flutter application regenerates localization files on `application run` (including `app-localization` files even with `generate: false`) which results to cleared annotations and imports and will require running the `generate_localization.sh` script to write all required imports and annotations in the `app-localization` file. 
 
-With this in mind, the regenerated files results to errors that might prevent the execution of running the application since the generated part file `AppLocalizationsMapper` of `AppLocalizations` does not exist yet and is referenced in `LocalizationExtension`.
+With this in mind, the regenerated files results to errors that might prevent the execution of running the application since the generated part file `AppLocalizationsMapper` of `AppLocalizations` does not exist yet (and vise-versa).
 
-An approach around this would be to create a post script run workflow to run the `generate_localization.sh` script when `flutter run` command is completed when using a terminal or code editor to run the flutter application
+An approach around this would be to create a post script run workflow to run the `generate_localization.sh` script when `flutter run` command is completed when using a terminal or code editor to run the flutter application or disable flutter's auto-generate feature on application run (which an issue is currently opened for).
 
-Opened an issue pertaining this and another pertaining some bugs introduced by `flutter 3.7`
+Opened an issue pertaining this and another pertaining some bugs introduced by `flutter 3.7` includes
 - [[BUG]Unable to disable auto-generation](https://github.com/flutter/flutter/issues/120023)
 - [[BUG]Unnecessary additional parameters generated for mismatched placeholders](https://github.com/flutter/flutter/issues/120025)
 
-Here is a proposal this package is aimed to resolve
+Here is a proposal this package is aimed to resolve since we require the same usecase
 - [[Proposal] Access l18n Translations with Dynamic Keys #105672](https://github.com/flutter/flutter/issues/105672)
 
 **Note: Your PRs regarding this is highly encouraged and welcome**
