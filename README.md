@@ -105,7 +105,7 @@ echo "\nGenerating app_localizations mapper files"
 
 Helper extensions
 
-To access translations dynamically and parse placeholder parameters, part file of `app-localizations.dart` is generated consisting an access extension on build-context and a mapper.
+To access translations dynamically and parse placeholder parameters, a part file of `app-localizations.dart` is generated consisting of an access extension on build-context and a mapper.
 
 ```dart
 // ../app-localizations.g.dart
