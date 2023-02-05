@@ -105,51 +105,70 @@ echo "\nGenerating app_localizations mapper files"
 
 Helper extensions
 
-To access translations dynamically and parse placeholder parameters, I created an extension to simplify and hide unessecary boilerplate-code.
+To access translations dynamically and parse placeholder parameters, part file of `app-localizations.dart` is generated consisting an access extension on build-context and a mapper.
 
 ```dart
-import 'package:flutter/material.dart';
+// ../app-localizations.g.dart
 
-import '../gen-l10n/app_localizations.dart';
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
-extension LocalizationExtension on BuildContext {
+part of 'app_localizations.dart';
+
+// **************************************************************************
+// LocalizationMapperGenerator
+// **************************************************************************
+
+extension AppLocalizationsExtension on BuildContext {
   AppLocalizations get l10n => AppLocalizations.of(this)!;
   Locale get locale => Localizations.localeOf(this);
-
   String l10nParser(String translationKey, {List<Object>? arguments}) {
-    const mapper = AppLocalizationsMapper(); // generated app-localizations.g.dart file
+    const mapper = AppLocalizationsMapper();
     final object = mapper.toLocalizationMap(this)[translationKey];
-
     if (object is String) return object;
-
     assert(arguments != null, 'Arguments should not be null!');
     assert(arguments!.isNotEmpty, 'Arguments should not be empty!');
-
     return Function.apply(object, arguments);
+  }
+}
+
+class AppLocalizationsMapper {
+  const AppLocalizationsMapper();
+  Map<String, dynamic> toLocalizationMap(BuildContext context) {
+    return {
+      'localeName': AppLocalizations.of(context)!.localeName,
+      'application_name': AppLocalizations.of(context)!.application_name,
+      'deposit_timeframe': AppLocalizations.of(context)!.deposit_timeframe,
+      'balance_reverted': (currency) =>
+          AppLocalizations.of(context)!.balance_reverted(currency),
+      'convert_before_withdraw': (convertFrom, convertTo) =>
+          AppLocalizations.of(context)!
+              .convert_before_withdraw(convertFrom, convertTo),
+      'convert_before_withdraw_again': (convertFrom, convertTo) =>
+          AppLocalizations.of(context)!
+              .convert_before_withdraw_again(convertFrom, convertTo),
+    };
   }
 }
 ```
 
 Example usage
 
-Note: parameters, are parsed as a list of positional arguments which should be parsed as specified in the translation-file.
+Note: parameters, are parsed as a list of positional arguments which should be in the same order specified in the translation arb-file.
 
 ```dart
-  final status = context.l10nParser('transaction_status');
-  final title = context.l10nParser('application_title');
+  final applicationName = context.l10nParser('application_name'); // Localization mapper
+  final depositTimeFrame = context.l10nParser('deposit_timeframe'); // Instant
   
   // parsing placeholder parameters
-  final greeting = context.l10nParser('app_greeting', arguments: ['😀']); // Hello 😀
+  final convertBeforeWithdraw = context.l10nParser('convert_before_withdraw', arguments: ['CAD', 'EUR']); // * For withdrawing your CAD you first need to convert it back to EUR
 ```
 
-## Observed Limitaions
+## Observed Limitations
 Flutter application regenerates localization files on `application run` (including `app-localization` file even with `generate: false`) which results to cleared annotations and imports and will require running the `generate_localization.sh` script to write all required imports and annotations in the `app-localization` file. 
 
 With this in mind, the regenerated files results to errors that might prevent the execution of running the application since the generated part file `AppLocalizationsMapper` of `AppLocalizations` does not exist yet and is referenced in `LocalizationExtension`.
 
 An approach around this would be to create a post script run workflow to run the `generate_localization.sh` script when `flutter run` command is completed when using a terminal or code editor to run the flutter application
-
-**Note: Your PRs regarding this is highly encouraged and welcome**
 
 Opened an issues pertaining this and another pertaining some bugs introduced by `flutter 3.7`
 - [[BUG]Unable to disable auto-generation](https://github.com/flutter/flutter/issues/120023)
@@ -157,6 +176,8 @@ Opened an issues pertaining this and another pertaining some bugs introduced by 
 
 Here is a proposal this package is aimed to resolve
 - [[Proposal] Access l18n Translations with Dynamic Keys #105672](https://github.com/flutter/flutter/issues/105672)
+
+**Note: Your PRs regarding this is highly encouraged and welcome**
 
 For more information, checkout the example project.
 
