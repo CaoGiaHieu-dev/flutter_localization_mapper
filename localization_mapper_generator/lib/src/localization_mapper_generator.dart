@@ -31,25 +31,47 @@ class LocalizationMapperGenerator
     final mapperName = '${visitor.className}Mapper';
     final extensionName = '${visitor.className}Extension';
 
+    // annotation configs (mapper-extension)
+    final mapperExtension = annotation.read('mapperExtension');
+    final generateL10n = mapperExtension.read('l10n').boolValue;
+    final generateLocale = mapperExtension.read('locale').boolValue;
+    final generateL10nParser = mapperExtension.read('l10nParser').boolValue;
+
+    final shouldGenerateExtension =
+        generateL10n || generateLocale || generateL10nParser;
+
     // generate extension
-    buffer.writeln('extension $extensionName on BuildContext {');
-    buffer.writeln('$className get l10n => $className.of(this)!;');
-    buffer.writeln('Locale get locale => Localizations.localeOf(this);');
+    if (shouldGenerateExtension) {
+      buffer.writeln('extension $extensionName on BuildContext {');
+      if (generateL10n) {
+        buffer.writeln('$className get l10n => $className.of(this)!;');
+      }
 
-    buffer.writeln('String l10nParser(String translationKey, {List<Object>? arguments}) {');
-    buffer.writeln('const mapper = $mapperName();');
-    buffer.writeln('final object = mapper.toLocalizationMap(this)[translationKey];');
-    
-    buffer.writeln('if (object is String) return object;');
+      if (generateLocale) {
+        buffer.writeln('Locale get locale => Localizations.localeOf(this);');
+      }
 
-    buffer.writeln("assert(arguments != null, 'Arguments should not be null!');");
-    buffer.writeln("assert(arguments!.isNotEmpty, 'Arguments should not be empty!');");
+      if (generateL10nParser) {
+        buffer.writeln(
+            'String l10nParser(String translationKey, {List<Object>? arguments}) {');
+        buffer.writeln('const mapper = $mapperName();');
+        buffer.writeln(
+            'final object = mapper.toLocalizationMap(this)[translationKey];');
 
-    buffer.writeln('return Function.apply(object, arguments);');
-    buffer.writeln('}');
-    buffer.writeln('}');
+        buffer.writeln('if (object is String) return object;');
+
+        buffer.writeln(
+            "assert(arguments != null, 'Arguments should not be null!');");
+        buffer.writeln(
+            "assert(arguments!.isNotEmpty, 'Arguments should not be empty!');");
+
+        buffer.writeln('return Function.apply(object, arguments);');
+        buffer.writeln('}');
+      }
+
+      buffer.writeln('}');
+    }
     // end of extension
-
 
     // generate class
     buffer.writeln('class $mapperName {');
@@ -78,7 +100,7 @@ class LocalizationMapperGenerator
 
       // skips gen-exceptions
       if (genExceptions.contains(element)) continue;
-      
+
       buffer.writeln(
           "'$element': ($parameters) => AppLocalizations.of(context)!.$element($parameters),");
     }
