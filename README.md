@@ -151,5 +151,12 @@ An approach around this would be to create a post script run workflow to run the
 
 **Note: Your PRs regarding this is highly encouraged and welcome**
 
+Opened an issues pertaining this and another pertaining some bugs introduced by `flutter 3.7`
+- [[BUG]Unable to disable auto-generation](https://github.com/flutter/flutter/issues/120023)
+- [[BUG]Unnecessary additional parameters generated for mismatched placeholders](https://github.com/flutter/flutter/issues/120025)
+
+Here is a proposal this package is aimed to resolve
+- [[Proposal] Access l18n Translations with Dynamic Keys #105672](https://github.com/flutter/flutter/issues/105672)
+
 For more information, checkout the example project.
 
