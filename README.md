@@ -79,7 +79,7 @@ Note: ensure to change `filePath` to your `/app_localizations.dart` file locatio
 ```sh
 ../scripts/generate_localization.sh
 
-# grant executable permissions
+# grant executable permissions (you should grant executable permissions at your will and not via scripts)
 chmod +x ./replace_string.sh
 
 # generate localization
@@ -113,8 +113,8 @@ import 'package:flutter/material.dart';
 import '../gen-l10n/app_localizations.dart';
 
 extension LocalizationExtension on BuildContext {
-  AppLocalizations get cashierL10n => AppLocalizations.of(this)!;
-  Locale get cashierActiveLocale => Localizations.localeOf(this);
+  AppLocalizations get l10n => AppLocalizations.of(this)!;
+  Locale get locale => Localizations.localeOf(this);
 
   String l10nParser(String translationKey, {List<Object>? arguments}) {
     const mapper = AppLocalizationsMapper(); // generated app-localizations.g.dart file
@@ -135,11 +135,11 @@ Example usage
 Note: parameters, are parsed as a list of positional arguments which should be parsed as specified in the translation-file.
 
 ```dart
-  final status = context.cashierL10nParse('transaction_status');
-  final title = context.cashierL10nParse('application_title');
+  final status = context.l10nParser('transaction_status');
+  final title = context.l10nParser('application_title');
   
   // parsing placeholder parameters
-  final greeting = context.cashierL10nParse('app_greeting', arguments: ['😀']); // Hello 😀
+  final greeting = context.l10nParser('app_greeting', arguments: ['😀']); // Hello 😀
 ```
 
 ## Observed Limitaions
@@ -150,6 +150,13 @@ With this in mind, the regenerated files results to errors that might prevent th
 An approach around this would be to create a post script run workflow to run the `generate_localization.sh` script when `flutter run` command is completed when using a terminal or code editor to run the flutter application
 
 **Note: Your PRs regarding this is highly encouraged and welcome**
+
+Opened an issues pertaining this and another pertaining some bugs introduced by `flutter 3.7`
+- [[BUG]Unable to disable auto-generation](https://github.com/flutter/flutter/issues/120023)
+- [[BUG]Unnecessary additional parameters generated for mismatched placeholders](https://github.com/flutter/flutter/issues/120025)
+
+Here is a proposal this package is aimed to resolve
+- [[Proposal] Access l18n Translations with Dynamic Keys #105672](https://github.com/flutter/flutter/issues/105672)
 
 For more information, checkout the example project.
 
