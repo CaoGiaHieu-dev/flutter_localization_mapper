@@ -85,6 +85,12 @@ chmod +x ./replace_string.sh
 # generate localization
 (cd ../ && flutter gen-l10n)
 
+# mapper generator-config options:
+# preferrably, you can choose what to generate as part of localization extension on build-context by parsing 
+# required parameters in the `@LocalizationMapperAnnotation` annotation
+# 
+# @LocalizationMapperAnnotation(mapperExtension: MapperExtension(l10n: true, locale: true, l10nParser: true))
+
 filePath="../lib/localization/gen-l10n/app_localizations.dart"
 searchParameter="abstract class AppLocalizations {"
 requiredImports=$(cat << EOM
@@ -150,6 +156,16 @@ class AppLocalizationsMapper {
   }
 }
 ```
+
+Configuring generator
+
+Configurations can be parsed through the `LocalizationMapperAnnotation` to specify what extension methods to generate. This applicable when your application already defined relative extension methods so its ideal to disable the generation of these already defined extension methods. Below, are options available
+
+```dart
+@LocalizationMapperAnnotation(mapperExtension: MapperExtension(l10n: true, locale: true, l10nParser: true))
+```
+
+This the default config defined but can be updated and parsed via the `generate_localization.sh` script by mutating the default annotation `@LocalizationMapperAnnotation()` in `requiredImports` parameter object.
 
 Example usage
 
