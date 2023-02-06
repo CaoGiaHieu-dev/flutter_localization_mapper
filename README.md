@@ -157,7 +157,7 @@ class AppLocalizationsMapper {
 
 Configuring generator
 
-Configurations can be parsed through the `LocalizationMapperAnnotation` to specify what extension methods to generate. This applicable when your application already defined relative extension methods so its ideal to disable the generation of these already defined extension methods. Below, are options available
+Configurations can be parsed through the `LocalizationMapperAnnotation` to specify what extension methods to generate. This is applicable when your application already defined relative extension methods so its ideal to disable the generation of these already defined extension methods. Below, are config options available
 
 ```dart
 @LocalizationMapperAnnotation(mapperExtension: MapperExtension(l10n: true, locale: true, l10nParser: true))
