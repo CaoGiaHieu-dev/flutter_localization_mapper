@@ -163,7 +163,7 @@ Configurations can be parsed through the `LocalizationMapperAnnotation` to speci
 @LocalizationMapperAnnotation(mapperExtension: MapperExtension(l10n: true, locale: true, l10nParser: true))
 ```
 
-This the default config defined but can be updated and parsed via the `generate_localization.sh` script by mutating the default annotation `@LocalizationMapperAnnotation()` in `requiredImports` parameter object.
+This is the default config defined but can be updated and parsed via the `generate_localization.sh` script by mutating the default annotation `@LocalizationMapperAnnotation()` in `requiredImports` parameter object.
 
 Example usage
 
