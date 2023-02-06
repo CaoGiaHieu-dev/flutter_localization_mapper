@@ -20,8 +20,6 @@ abstract class AppLocalizations {
 EOM
 )
 
-# @LocalizationMapperAnnotation()\n\
-
 # write imports and annotations to app_localization.dart file
 echo "\nAdding required imports to generated app_localizations"
 bash ./replace_string.sh "$filePath" "$searchParameter" "$requiredImports"
