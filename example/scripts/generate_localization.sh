@@ -4,6 +4,12 @@ chmod +x ./replace_string.sh
 # generate localization
 (cd ../ && flutter gen-l10n)
 
+# mapper generator-config options:
+# preferrably, you can choose what to generate as part of localization extension on build-context by parsing 
+# required parameters in the `@LocalizationMapperAnnotation` annotation
+# 
+# @LocalizationMapperAnnotation(mapperExtension: MapperExtension(l10n: true, locale: true, l10nParser: true))
+
 filePath="../lib/localization/gen-l10n/app_localizations.dart"
 searchParameter="abstract class AppLocalizations {"
 requiredImports=$(cat << EOM
@@ -13,6 +19,8 @@ part 'app_localizations.g.dart';\n\n\
 abstract class AppLocalizations {
 EOM
 )
+
+# @LocalizationMapperAnnotation()\n\
 
 # write imports and annotations to app_localization.dart file
 echo "\nAdding required imports to generated app_localizations"
