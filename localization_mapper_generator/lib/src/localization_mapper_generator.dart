@@ -56,6 +56,9 @@ class LocalizationMapperGenerator
         buffer.writeln(
             'final object = mapper.toLocalizationMap(this)[translationKey];');
 
+        // account for null-case
+        buffer.writeln("if (object == null) return 'Translation key not found!';");
+
         buffer.writeln('if (object is String) return object;');
 
         buffer.writeln(
