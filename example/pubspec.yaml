@@ -13,7 +13,6 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
-  intl: 0.18.1
   localization_mapper_annotation: 
     path: ../localization_mapper_annotation
   # localization_mapper_annotation: ^0.0.2
