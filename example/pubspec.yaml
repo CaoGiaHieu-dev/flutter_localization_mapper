@@ -13,18 +13,14 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
-  localization_mapper_annotation: 
-    path: ../localization_mapper_annotation
-  # localization_mapper_annotation: ^0.0.2
+  localization_mapper_annotation: ^1.0.0-dev.1
 
 dev_dependencies:
   build_runner: ^2.3.3
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  localization_mapper_generator: 
-    path: ../localization_mapper_generator
-  # localization_mapper_generator: ^0.0.3
+  localization_mapper_generator: ^1.0.0-dev.1
 
 flutter:
   uses-material-design: true

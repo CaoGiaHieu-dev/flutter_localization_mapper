@@ -307,17 +307,19 @@ packages:
   localization_mapper_annotation:
     dependency: "direct main"
     description:
-      path: "../localization_mapper_annotation"
-      relative: true
-    source: path
-    version: "0.0.2"
+      name: localization_mapper_annotation
+      sha256: "8657fa2e43974b4d0e59944729ece615bbbefcdb13556e5c2cd1c85848ed68e1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0-dev.1"
   localization_mapper_generator:
     dependency: "direct dev"
     description:
-      path: "../localization_mapper_generator"
-      relative: true
-    source: path
-    version: "0.0.3"
+      name: localization_mapper_generator
+      sha256: "6b85e6f4d54220236147e0551ca322852117e3923acd507c04f7ccfb4f4af5a5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0-dev.1"
   logging:
     dependency: transitive
     description:
