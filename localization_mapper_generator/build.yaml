@@ -9,7 +9,7 @@ builders:
     target: ":generators"
     import: "package:localization_mapper_generator/localization_mapper_generator.dart"
     builder_factories: ["generateLocalizationClass"] #Builder name(BuilderOptions)
-    build_extensions: { ".dart": [".g.dart"] }
+    build_extensions: { ".dart": [".localization_mapper_gen.g.part"] }
     auto_apply: dependents
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]
